@@ -21,13 +21,13 @@ Works with **Claude Code, OpenAI Codex, GitHub Copilot, Cursor, Windsurf, Cline,
 
 ```bash
 # Claude Code / Copilot / Cline / Roo Code (all scan ~/.claude/skills/)
-cd ~/.claude/skills && git clone https://github.com/YOUR_USERNAME/jaws-accessibility-skill.git jaws-accessibility
+cd ~/.claude/skills && git clone https://github.com/Ambitos-1995/jaws-accessibility-skill.git jaws-accessibility
 
 # Cross-platform location (recognized by most tools)
-cd ~/.agents/skills && git clone https://github.com/YOUR_USERNAME/jaws-accessibility-skill.git jaws-accessibility
+cd ~/.agents/skills && git clone https://github.com/Ambitos-1995/jaws-accessibility-skill.git jaws-accessibility
 
 # Windsurf
-cd ~/.codeium/windsurf/skills && git clone https://github.com/YOUR_USERNAME/jaws-accessibility-skill.git jaws-accessibility
+cd ~/.codeium/windsurf/skills && git clone https://github.com/Ambitos-1995/jaws-accessibility-skill.git jaws-accessibility
 ```
 
 ### Option 2: Manual copy
