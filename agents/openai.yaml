@@ -1,0 +1,8 @@
+interface:
+  display_name: "JAWS Accessibility"
+  short_description: "JAWS/NVDA audits and Spain/EU access scope"
+  default_prompt: "Use $jaws-accessibility to audit this UI with JAWS and NVDA and map findings to Spain/EU accessibility requirements."
+
+policy:
+  allow_implicit_invocation: true
+
