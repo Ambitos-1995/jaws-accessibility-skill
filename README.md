@@ -6,7 +6,7 @@
 
 <a id="english"></a>
 
-A comprehensive accessibility engineering skill featuring **JAWS/NVDA screen reader compatibility**, **Spanish & European legislation**, **WCAG 2.2 criteria**, and **ARIA best practices**.
+A comprehensive accessibility engineering skill featuring **JAWS/NVDA screen reader compatibility**, **Spanish & European legislation**, **priority WCAG 2.2 patterns linked to the complete official matrix**, and **ARIA best practices**.
 
 Works with **Claude Code, OpenAI Codex, GitHub Copilot, Cursor, Windsurf, Cline, Roo Code**, and any tool that supports the [Agent Skills](https://agentskills.io) open standard.
 
@@ -14,18 +14,21 @@ Works with **Claude Code, OpenAI Codex, GitHub Copilot, Cursor, Windsurf, Cline,
 
 | Feature | This skill | Other a11y skills |
 |---|---|---|
-| **JAWS/NVDA bugs by version** (2024, 2025, 2026 betas) | Yes | No |
-| **Spanish legislation** (Ley 11/2023, RD 1112/2018) | Yes | No |
+| **JAWS/NVDA current-release testing caveats** | Yes | No |
+| **Spanish legislation** (Ley 11/2023, RD 1112/2018, RD 193/2023) | Yes | No |
 | **European Accessibility Act (EAA)** + EN 301 549 | Yes | No |
 | **JAWS audit methodology** with commands and QA flow | Yes | No |
-| WCAG 2.2 criteria with code examples | Yes | Partial |
-| ARIA divergence tables per screen reader | Yes | No |
+| Priority WCAG 2.2 patterns with official complete-matrix routing | Yes | Partial |
+| Cross-reader risk patterns and evidence guidance | Yes | No |
 
 ## Installation
 
 ### Option 1: Clone
 
 ```bash
+# OpenAI Codex
+cd ~/.codex/skills && git clone https://github.com/Ambitos-1995/jaws-accessibility-skill.git jaws-accessibility
+
 # Claude Code / Copilot / Cline / Roo Code (all scan ~/.claude/skills/)
 cd ~/.claude/skills && git clone https://github.com/Ambitos-1995/jaws-accessibility-skill.git jaws-accessibility
 
@@ -54,10 +57,14 @@ jaws-accessibility/
 ├── LICENSE                               # MIT
 ├── agents/
 │   └── openai.yaml                       # OpenAI Codex UI metadata (platform-specific extension)
+├── scripts/
+│   └── validate_skill_content.py          # Semantic and synchronization validation
+├── tests/
+│   └── test_scenarios.py                  # Regression scenarios for critical guidance
 └── references/
-    ├── spanish-eu-legislation.md          # Ley 11/2023, RD 1112/2018, EAA, EN 301 549
-    ├── wcag-22-criteria.md               # All WCAG 2.2 A/AA criteria with code examples
-    ├── jaws-nvda-compatibility.md         # Interaction modes, ARIA divergences, bugs by version
+    ├── spanish-eu-legislation.md          # Ley 11/2023, RD 1112/2018, RD 193/2023, EAA, EN 301 549
+    ├── wcag-22-criteria.md               # Priority patterns plus the official complete matrix
+    ├── jaws-nvda-compatibility.md         # Cross-reader risks, evidence notes, version caveats
     ├── jaws-audit-methodology.md          # Setup, commands, 8-phase testing, CI/CD integration
     └── future-standards.md                # WCAG 3.0 tracking (non-normative)
 ```
@@ -67,26 +74,27 @@ jaws-accessibility/
 ### Screen reader compatibility
 - JAWS vs NVDA fundamental differences and testing strategies
 - Interaction modes (Browse Mode / Focus Mode) and mode switching
-- ARIA roles, states, and properties with per-reader behavior tables
-- Version-specific bugs and regressions (JAWS 2024, 2025, 2026 betas)
+- Cross-reader risk patterns for ARIA, live regions, tables, labels, and SPA navigation
+- Current-release caveats, including JAWS 2026 AI Labeler and browser pairings
 - Anti-patterns that cause silent failures
 
 ### Spanish & European legislation
 - **European Accessibility Act (EAA)** — Directive (EU) 2019/882, enforcement from June 2025
-- **Ley 11/2023** — Spanish private sector obligations, sanctions up to EUR 1,000,000
+- **Ley 11/2023** — Scope-limited Spanish implementation of the EAA, with sector and microenterprise checks
 - **RD 1112/2018** — Spanish public sector requirements
-- **EN 301 549** — Harmonized European standard (current v3.2.1, upcoming v4.1.1)
+- **RD 193/2023** — Accessibility requirements and phased deadlines for goods and services offered to the public
+- **EN 301 549** — v3.2.1 remains harmonized for the Web Accessibility Directive; EAA harmonization and newer v4 artifacts are tracked separately
 - Microenterprise exemptions and disproportionate burden documentation
 - Practical compliance roadmap
 
-### WCAG 2.2 criteria
-- All Level A and AA success criteria organized by POUR principles
-- Good/bad code examples for each criterion
+### WCAG 2.2 patterns
+- Priority Level A and AA implementation patterns organized by POUR principles
+- Explicit routing to the official complete WCAG 2.2 matrix; this skill does not reproduce all 86 criteria
 - New criteria in 2.2: Focus Not Obscured, Dragging Movements, Target Size, Accessible Authentication, Redundant Entry, Consistent Help
 - Deprecated criterion: 4.1.1 Parsing
 
 ### Audit methodology
-- Complete JAWS command reference (30+ commands)
+- Curated essential JAWS web-audit commands, with Desktop/Laptop distinctions
 - Pre-audit automated scanning workflow (axe-core, Lighthouse)
 - 8-phase manual testing flow with detailed verification steps
 - Cross-validation with NVDA
@@ -132,6 +140,7 @@ Contributions are welcome! Particularly:
 - Review legal and standards references periodically.
 - Update the `Last reviewed` date in each reference file after edits.
 - Track JAWS/NVDA version-specific behavior in compatibility notes.
+- Run `python scripts/validate_skill_content.py .` and `python -m unittest discover -s tests -p "test_*.py"` before installation.
 
 ## License
 
@@ -143,7 +152,7 @@ MIT
 
 # JAWS Accessibility — Agent Skill (Español)
 
-Una skill de ingeniería de accesibilidad completa con **compatibilidad de lectores de pantalla JAWS/NVDA**, **legislación española y europea**, **criterios WCAG 2.2** y **buenas prácticas ARIA**.
+Una skill de ingeniería de accesibilidad completa con **compatibilidad de lectores de pantalla JAWS/NVDA**, **legislación española y europea**, **patrones prioritarios WCAG 2.2 enlazados a la matriz oficial completa** y **buenas prácticas ARIA**.
 
 Funciona con **Claude Code, OpenAI Codex, GitHub Copilot, Cursor, Windsurf, Cline, Roo Code** y cualquier herramienta que soporte el estándar abierto [Agent Skills](https://agentskills.io).
 
@@ -151,18 +160,21 @@ Funciona con **Claude Code, OpenAI Codex, GitHub Copilot, Cursor, Windsurf, Clin
 
 | Característica | Esta skill | Otras skills de a11y |
 |---|---|---|
-| **Bugs de JAWS/NVDA por versión** (2024, 2025, 2026 betas) | Sí | No |
-| **Legislación española** (Ley 11/2023, RD 1112/2018) | Sí | No |
+| **Consideraciones de prueba de versiones actuales de JAWS/NVDA** | Sí | No |
+| **Legislación española** (Ley 11/2023, RD 1112/2018, RD 193/2023) | Sí | No |
 | **Directiva Europea de Accesibilidad (EAA)** + EN 301 549 | Sí | No |
 | **Metodología de auditoría JAWS** con comandos y flujo QA | Sí | No |
-| Criterios WCAG 2.2 con ejemplos de código | Sí | Parcial |
-| Tablas de divergencia ARIA por lector de pantalla | Sí | No |
+| Patrones prioritarios WCAG 2.2 con acceso a la matriz oficial | Sí | Parcial |
+| Patrones de riesgo entre lectores y guía de evidencias | Sí | No |
 
 ## Instalación
 
 ### Opción 1: Clonar
 
 ```bash
+# OpenAI Codex
+cd ~/.codex/skills && git clone https://github.com/Ambitos-1995/jaws-accessibility-skill.git jaws-accessibility
+
 # Claude Code / Copilot / Cline / Roo Code (todos escanean ~/.claude/skills/)
 cd ~/.claude/skills && git clone https://github.com/Ambitos-1995/jaws-accessibility-skill.git jaws-accessibility
 
@@ -191,10 +203,14 @@ jaws-accessibility/
 ├── LICENSE                               # MIT
 ├── agents/
 │   └── openai.yaml                       # Metadatos UI de OpenAI Codex (extensión específica)
+├── scripts/
+│   └── validate_skill_content.py          # Validación semántica y de sincronización
+├── tests/
+│   └── test_scenarios.py                  # Escenarios de regresión de guía crítica
 └── references/
-    ├── spanish-eu-legislation.md          # Ley 11/2023, RD 1112/2018, EAA, EN 301 549
-    ├── wcag-22-criteria.md               # Todos los criterios WCAG 2.2 A/AA con ejemplos de código
-    ├── jaws-nvda-compatibility.md         # Modos de interacción, divergencias ARIA, bugs por versión
+    ├── spanish-eu-legislation.md          # Ley 11/2023, RD 1112/2018, RD 193/2023, EAA, EN 301 549
+    ├── wcag-22-criteria.md               # Patrones prioritarios y matriz oficial completa
+    ├── jaws-nvda-compatibility.md         # Riesgos entre lectores, evidencias y versiones
     ├── jaws-audit-methodology.md          # Setup, comandos, pruebas de 8 fases, integración CI/CD
     └── future-standards.md                # Seguimiento WCAG 3.0 (no normativo)
 ```
@@ -204,26 +220,27 @@ jaws-accessibility/
 ### Compatibilidad de lectores de pantalla
 - Diferencias fundamentales JAWS vs NVDA y estrategias de pruebas
 - Modos de interacción (Modo Exploración / Modo Foco) y cambio de modos
-- Roles, estados y propiedades ARIA con tablas de comportamiento por lector
-- Bugs y regresiones específicos por versión (JAWS 2024, 2025, 2026 betas)
+- Patrones de riesgo entre lectores para ARIA, regiones vivas, tablas, etiquetas y navegación SPA
+- Consideraciones de versiones actuales, incluido JAWS 2026 AI Labeler y combinaciones de navegador
 - Anti-patrones que causan fallos silenciosos
 
 ### Legislación española y europea
 - **Directiva Europea de Accesibilidad (EAA)** — Directiva (UE) 2019/882, aplicación desde junio 2025
-- **Ley 11/2023** — Obligaciones del sector privado español, sanciones de hasta 1.000.000 EUR
+- **Ley 11/2023** — Aplicación española de la EAA con alcance sectorial y comprobación de microempresas
 - **RD 1112/2018** — Requisitos del sector público español
-- **EN 301 549** — Estándar armonizado europeo (actual v3.2.1, próxima v4.1.1)
+- **RD 193/2023** — Requisitos de accesibilidad y plazos escalonados para bienes y servicios ofrecidos al público
+- **EN 301 549** — v3.2.1 sigue armonizada para la Directiva de accesibilidad web; la armonización para EAA y los artefactos v4 se controlan por separado
 - Exenciones para microempresas y documentación de carga desproporcionada
 - Hoja de ruta práctica de cumplimiento
 
-### Criterios WCAG 2.2
-- Todos los criterios de Nivel A y AA organizados por principios POUR
-- Ejemplos de código correcto/incorrecto para cada criterio
+### Patrones WCAG 2.2
+- Patrones prioritarios de Nivel A y AA organizados por principios POUR
+- Enlace explícito a la matriz oficial completa; la skill no reproduce los 86 criterios
 - Nuevos criterios en 2.2: Foco No Oscurecido, Movimientos de Arrastre, Tamaño de Objetivo, Autenticación Accesible, Entrada Redundante, Ayuda Consistente
 - Criterio obsoleto: 4.1.1 Análisis sintáctico
 
 ### Metodología de auditoría
-- Referencia completa de comandos JAWS (30+ comandos)
+- Selección de comandos esenciales para auditoría web con JAWS, diferenciando Desktop y Laptop
 - Flujo de escaneo automatizado pre-auditoría (axe-core, Lighthouse)
 - Flujo de pruebas manuales de 8 fases con pasos de verificación detallados
 - Validación cruzada con NVDA
@@ -269,6 +286,7 @@ Esta skill proporciona orientación de ingeniería, no asesoramiento jurídico. 
 - Revisar periódicamente las referencias legales y de estándares.
 - Actualizar la fecha `Last reviewed` en cada archivo de referencia tras ediciones.
 - Rastrear el comportamiento específico por versión de JAWS/NVDA en las notas de compatibilidad.
+- Ejecutar `python scripts/validate_skill_content.py .` y `python -m unittest discover -s tests -p "test_*.py"` antes de instalar.
 
 ## Licencia
 

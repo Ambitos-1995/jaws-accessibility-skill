@@ -1,10 +1,10 @@
-# WCAG 2.2 Criteria Reference
+# Priority WCAG 2.2 Patterns (Not a Complete Criteria Matrix)
 
-Last reviewed: 2026-03-03
+Last reviewed: 2026-08-31
 
 ## TOC
 
-1. Normative status
+1. Coverage boundary and normative status
 2. Overview: WCAG 2.2 vs 2.1
 3. Principle 1: Perceivable
 4. Principle 2: Operable
@@ -16,11 +16,12 @@ Last reviewed: 2026-03-03
 
 ---
 
-## 1. Normative status
+## 1. Coverage boundary and normative status
 
-- WCAG 2.2 is a W3C Recommendation (published 2023-10-05, updated 2024-12-12).
+- WCAG 2.2 is a W3C Recommendation (published 2023-10-05, updated 2024-12-12) and was approved as ISO/IEC 40500:2025. The W3C Recommendation remains the implementation reference used here.
 - In legal contexts, enforceability depends on the applicable law and harmonized standard.
-- Use this file as an engineering implementation guide, then map to legal baseline with `spanish-eu-legislation.md`.
+- This file contains **priority implementation patterns, not all 86 success criteria and not a conformance checklist**. Use the official WCAG 2.2 Quick Reference as the complete criteria matrix: https://www.w3.org/WAI/WCAG22/quickref/
+- Use these examples as engineering guidance, then map the complete applicable criteria set to the legal baseline with `spanish-eu-legislation.md`. WAI-ARIA Authoring Practices describe widget design patterns; they are not additional WCAG success criteria and do not by themselves establish conformance.
 
 ---
 
@@ -65,6 +66,15 @@ All non-text content must have a text alternative.
 <!-- Decorative image — empty alt -->
 <img src="decorative-wave.svg" alt="" role="presentation">
 ```
+
+### 1.2.2 Captions (Prerecorded) (A)
+Prerecorded synchronized media with audio must provide accurate, synchronized captions for speech and meaningful non-speech audio, subject to the criterion's media-alternative exception.
+
+### 1.2.3 Audio Description or Media Alternative (Prerecorded) (A)
+Prerecorded video needs either audio description or an equivalent time-based media alternative when meaningful visual information is not already conveyed in the soundtrack.
+
+### 1.2.5 Audio Description (Prerecorded) (AA)
+At Level AA, prerecorded video in synchronized media needs audio description for meaningful visual information, subject to the criterion's scope and exceptions. A transcript alone does not automatically satisfy this AA criterion.
 
 ### 1.3.1 Info and Relationships (A)
 Information, structure, and relationships conveyed visually must be programmatically determinable.
@@ -145,6 +155,9 @@ Content that appears on hover/focus must be dismissible, hoverable, and persiste
 </div>
 ```
 
+### 1.4.10 Reflow (AA)
+At an equivalent viewport of 320 CSS pixels wide for vertically scrolling content, information and functionality must remain available without two-dimensional scrolling, except for content that requires two-dimensional layout for meaning or use.
+
 ---
 
 ## 4. Principle 2: Operable
@@ -176,7 +189,9 @@ All functionality must be operable through a keyboard interface.
 ```
 
 ### 2.1.2 No Keyboard Trap (A)
-Focus must never become trapped in a component (exception: modals, which must trap focus intentionally and provide an escape mechanism).
+Keyboard users must be able to move focus away from a component using only a keyboard interface, or be told the non-standard exit method. Restricting focus while a modal dialog is open can satisfy this criterion when the user has a keyboard way to dismiss or leave it.
+
+WCAG does not prescribe one complete modal interaction model. The APG dialog pattern is informative guidance and conventionally cycles focus within a modal, supports Escape to close, and restores focus appropriately. Report a WCAG failure only after mapping the actual user impact to a normative success criterion; do not report deviation from an APG example as a failure by itself.
 
 ### 2.4.3 Focus Order (A)
 Focusable components must receive focus in an order that preserves meaning and operability.
@@ -245,7 +260,7 @@ Any functionality that uses dragging must offer a single-pointer alternative.
 ```
 
 ### 2.5.8 Target Size (Minimum) (AA) — NEW in 2.2
-Interactive targets must be at least 24x24 CSS pixels, OR have sufficient spacing from other targets.
+Interactive targets must be at least 24x24 CSS pixels, or satisfy one of the criterion's exceptions (including spacing, equivalent control, inline, user-agent-controlled, or essential presentation). Treat 44x44 CSS pixels as a strong usability recommendation, not the WCAG 2.2 AA minimum.
 
 ```html
 <!-- BAD: tiny icon button -->
@@ -398,7 +413,9 @@ Status messages that don't receive focus must be exposed via live regions.
 ## 7. Deprecated criteria
 
 ### 4.1.1 Parsing (formerly A)
-**Obsolete** in WCAG 2.2. Modern browsers and assistive technology handle parsing errors gracefully. No longer needs to be tested or reported.
+WCAG 2.2 marks this criterion obsolete and removes it. The updated WCAG 2.0 and WCAG 2.1 materials also state that 4.1.1 should be considered **always satisfied for content using HTML or XML**.
+
+Do not report an HTML/XML accessibility failure under 4.1.1. Map the actual user impact to another applicable criterion, commonly 1.3.1 (Info and Relationships) or 4.1.2 (Name, Role, Value). Markup validation can still be useful for code quality, and a dated procurement procedure may separately require a legacy validation check, but that does not turn the defect into a current WCAG 4.1.1 failure.
 
 ---
 
@@ -406,9 +423,10 @@ Status messages that don't receive focus must be exposed via live regions.
 
 For each finding, record:
 - WCAG SC id and level
+- Result: `PASS`, `FAIL`, `NOT TESTED`, or `NOT APPLICABLE`
 - Page/route and control identifier
 - Reproduction steps
-- Assistive tech and browser version
+- Complete environment ID, including assistive technology and browser builds
 - Expected result
 - Actual result
 - Code-level remediation note
@@ -420,3 +438,7 @@ For each finding, record:
 - WCAG 2.2: https://www.w3.org/TR/WCAG22/
 - WCAG 2.2 Quick Reference: https://www.w3.org/WAI/WCAG22/quickref/
 - Understanding docs index: https://www.w3.org/WAI/WCAG22/Understanding/
+- W3C WCAG FAQ, including the status of 4.1.1 in WCAG 2.0/2.1: https://www.w3.org/WAI/standards-guidelines/wcag/faq/
+- WAI-ARIA Authoring Practices introduction (APG is informative, not normative): https://www.w3.org/WAI/ARIA/apg/about/introduction/
+- WCAG 2.5.8 Target Size (Minimum): https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html
+- WCAG 2.2 ISO/IEC announcement: https://www.w3.org/press-releases/2025/wcag22-iso-pas/
